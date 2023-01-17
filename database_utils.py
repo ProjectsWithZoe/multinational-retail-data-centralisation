@@ -1,9 +1,17 @@
+
 import yaml
 
-def read_db_creds():
-    with open('db_creds.yaml') as file:
-        data = yaml.load(file, Loader=yaml.FullLoader)
-        return data
+class DatabaseConnector:
+    def __init__(self) -> None:
+        pass
 
-data = read_db_creds()
-print(data)
+    def read_db_creds():
+        with open('db_creds.yaml') as file:
+            data = yaml.load(file, Loader=yaml.FullLoader)
+            print(data)
+
+db1 = DatabaseConnector
+db1.read_db_creds()
+
+
+
