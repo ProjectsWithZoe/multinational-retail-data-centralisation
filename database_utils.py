@@ -21,5 +21,5 @@ class DatabaseConnector:
         print(engine)
         return engine  
 
-
-
+db_connector = DatabaseConnector()
+db_connector.init_db_engine(creds_file='db_creds.yaml')
