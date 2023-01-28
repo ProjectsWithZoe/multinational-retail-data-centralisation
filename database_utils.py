@@ -12,13 +12,13 @@ class DatabaseConnector:
         creds_file = 'db_creds.yaml'
         with open(creds_file,'r') as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
-        print (data)
+        #print (data)
         return data
 
     def init_db_engine(self,creds_file):
         data = self.read_db_creds(creds_file)
         engine = create_engine(f"postgresql+{DBAPI}://{data['RDS_USER']}:{data['RDS_PASSWORD']}@{data['RDS_HOST']}:{data['RDS_PORT']}/{data['RDS_DATABASE']}")
-        print(engine)
+        #print(engine)
         return engine  
 
 db_connector = DatabaseConnector()

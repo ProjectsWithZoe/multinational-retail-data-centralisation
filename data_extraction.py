@@ -10,15 +10,14 @@ class DataExtractor:
     def list_db_tables(self,engine):
         inspector = inspect(engine)
         table_names = inspector.get_table_names()
-        print(table_names)
+        #print(table_names)
         return table_names
 
     def read_rds_table(self, db_connector, table_name):
         engine = db_connector.init_db_engine('db_creds.yaml')
-        table_names = self.list_db_tables(engine)
         query = (f'SELECT * FROM {table_name}')
         df = pd.read_sql_query(query, engine )
-        print(df)
+        #print(df)
         return df
 
 database_extractor = DataExtractor()
