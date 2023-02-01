@@ -1,4 +1,4 @@
-import database_utils 
+
 from sqlalchemy import create_engine,inspect
 import psycopg2
 import pandas as pd
@@ -20,7 +20,9 @@ class DataExtractor:
         #print(df)
         return df
 
+import database_utils
 database_extractor = DataExtractor()
-database_extractor.read_rds_table(database_utils.db_connector,'legacy_users' )
+
+
 
     

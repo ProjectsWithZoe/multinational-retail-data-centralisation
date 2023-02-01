@@ -2,6 +2,7 @@
 import yaml
 from sqlalchemy import create_engine,inspect
 import psycopg2
+
 DBAPI = 'psycopg2'
 
 class DatabaseConnector:
@@ -21,5 +22,16 @@ class DatabaseConnector:
         #print(engine)
         return engine  
 
+    def upload_to_db(self,df,table_name):
+        engine = self.init_db_engine('db_creds.yaml')
+        df.to_sql(table_name, engine)
+
+
+
 db_connector = DatabaseConnector()
-db_connector.init_db_engine(creds_file='db_creds.yaml')
+import data_extraction
+data_extractor = data_extraction.DataExtractor()
+df = data_extractor.read_rds_table(db_connector,'legacy_users')
+db_connector.upload_to_db(df,'dim_users')
+
+

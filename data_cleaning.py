@@ -1,4 +1,4 @@
-import data_extraction, database_utils
+
 import pandas as pd
 
 
@@ -26,15 +26,6 @@ class DataCleaning:
         new_df['join_date'] = pd.to_datetime(new_df['join_date'], infer_datetime_format=True)
         new_df['date_of_birth'] = pd.to_datetime(new_df['date_of_birth'], infer_datetime_format=True)
         
-        
-        letters = new_df[new_df['phone_number'].str.isalpha()==True]
-        print(new_df[letters])
-
-
-        #print(user_df)
-
-
-        
-
+        return new_df
+import data_extraction, database_utils
 data_cleaner = DataCleaning()
-data_cleaner.clean_user_data(data_extraction.database_extractor)
