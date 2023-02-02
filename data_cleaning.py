@@ -1,6 +1,6 @@
 
 import pandas as pd
-
+import database_utils
 
 class DataCleaning:
     def __init__(self) -> None:
@@ -26,6 +26,9 @@ class DataCleaning:
         new_df['join_date'] = pd.to_datetime(new_df['join_date'], infer_datetime_format=True)
         new_df['date_of_birth'] = pd.to_datetime(new_df['date_of_birth'], infer_datetime_format=True)
         
+        print(new_df)
         return new_df
-import data_extraction, database_utils
+
+
 data_cleaner = DataCleaning()
+

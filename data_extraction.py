@@ -1,5 +1,5 @@
 
-from sqlalchemy import create_engine,inspect
+from sqlalchemy import inspect
 import psycopg2
 import pandas as pd
 
@@ -20,7 +20,6 @@ class DataExtractor:
         #print(df)
         return df
 
-import database_utils
 database_extractor = DataExtractor()
 
 
