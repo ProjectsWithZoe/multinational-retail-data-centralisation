@@ -30,7 +30,7 @@ class DatabaseConnector:
     def upload_to_db(self,df,table_name):
         user = config.user
         password= config.password
-        sql_engine = create_engine('postgresql://{user}:{password}@localhost:5432/Sales_Data')
+        sql_engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/Sales_Data')
         df.to_sql(table_name, sql_engine)
 
 db_connector = DatabaseConnector()

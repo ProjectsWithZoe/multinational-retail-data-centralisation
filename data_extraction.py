@@ -39,8 +39,10 @@ class DataExtractor:
         url = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
 
         response = requests.get(url,headers=header)
-        data = response.json()
-        print(data)
+        r = response.raise_for_status()
+        print (r)
+        #data = response.json()
+        #print(data)
 
 
 

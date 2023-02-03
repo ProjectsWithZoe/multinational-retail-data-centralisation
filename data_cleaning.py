@@ -37,7 +37,7 @@ class DataCleaning:
         orders_df = database_extractor.read_rds_table(database_utils.db_connector, 'orders_table')
         orders_df_copy = orders_df
 
-        new_df = orders_df_copy.drop(columns=['1','first_name', 'last_name'])
+        new_df = orders_df_copy.drop(columns=['1','first_name', 'last_name', 'level_0'])
         print(new_df)
         return new_df
 
