@@ -29,7 +29,16 @@ class DataCleaning:
         print(new_df)
         return new_df
     #to be updated once link is fixed
-    #def clean_store_data(self, database_extractor):
+    def clean_store_data(self, database_extractor):
+        store_number = 450
+        url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
+        header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
+        
+        df = database_extractor.retrieve_stores_data(url_two, header=header, store_number=store_number)
+        return df
+        
+        
+
         
         #store_df = database_extractor.retrieve_stores_data(url,header)
 
@@ -40,8 +49,6 @@ class DataCleaning:
         new_df = orders_df_copy.drop(columns=['1','first_name', 'last_name', 'level_0'])
         print(new_df)
         return new_df
-
-
 
 data_cleaner = DataCleaning()
 
