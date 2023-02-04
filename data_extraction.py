@@ -34,17 +34,20 @@ class DataExtractor:
         print(store_number)
         return store_number
 
-    def retrieve_stores_data(self, url, header):
-        store_number = 450
-        url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
+    def retrieve_stores_data(self, url, header, store_number):
         df_list = []
         while store_number >=0:
+            url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
             response = requests.get(url=url_two,headers=header)
             data = response.json()
-            store_number -=1
             #print(data)
             df_list.append(data)
-        print(df_list)
+            store_number -=1
+        #print(df_list)
+    
+        df = pd.DataFrame(df_list)
+        print(df)
+
 
 database_extractor = DataExtractor()
 
