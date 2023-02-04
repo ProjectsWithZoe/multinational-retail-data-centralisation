@@ -41,6 +41,7 @@ class DataExtractor:
         while store_number >=0:
             response = requests.get(url=url_two,headers=header)
             data = response.json()
+            store_number -=1
             #print(data)
             df_list.append(data)
         print(df_list)
