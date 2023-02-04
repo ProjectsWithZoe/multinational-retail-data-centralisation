@@ -4,6 +4,8 @@ import psycopg2
 import pandas as pd
 import json, requests
 
+header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
+url_one = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
 
 
 class DataExtractor:
@@ -24,10 +26,8 @@ class DataExtractor:
         return df
 
     def list_number_of_stores(self,url,header):
-        header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
-        url = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
-        
-        response = requests.get(url, headers=header)
+       
+        response = requests.get(url=url_one, headers=header)
         r = response.raise_for_status()
         #print(r)
         store_number = response.json()
@@ -35,19 +35,15 @@ class DataExtractor:
         return store_number
 
     def retrieve_stores_data(self, url, header):
-
-        response = requests.get(url,headers=header)
-        data = response.json()
-        print(data)
-        #data = response.json()
-        #print(data)
-
-
-
-
-
-
-
+        store_number = 450
+        url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
+        df_list = []
+        while store_number >=0:
+            response = requests.get(url=url_two,headers=header)
+            data = response.json()
+            #print(data)
+            df_list.append(data)
+        print(df_list)
 
 database_extractor = DataExtractor()
 
