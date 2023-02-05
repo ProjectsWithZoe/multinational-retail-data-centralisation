@@ -3,6 +3,8 @@ from sqlalchemy import inspect
 import psycopg2
 import pandas as pd
 import json, requests
+import boto3
+import config
 
 header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
 url_one = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
@@ -45,6 +47,17 @@ class DataExtractor:
             store_number -=1
         return df_list
         #df = pd.DataFrame(df_list)
+
+    def extract_from_s3(self,url):
+        #url = 's3://data-handling-public/products.csv'
+        session = boto3.Session(aws_access_key_id =config.aws_access_key_id,
+                                aws_secret_access_key = config.aws_secret_access_key)
+        s3_client = session.client('s3')
+        bucket,key = url.split('/')[2], '/'.join(url.split('/')[3:])
+        response = s3_client.get_object(Bucket=bucket, Key=key)
+        df = pd.read_csv(response['Body'])
+        #print(df)
+        return df
         
         
 

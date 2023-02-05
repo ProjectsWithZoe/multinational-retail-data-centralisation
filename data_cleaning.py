@@ -45,8 +45,18 @@ class DataCleaning:
         orders_df_copy = orders_df
 
         new_df = orders_df_copy.drop(columns=['1','first_name', 'last_name', 'level_0'])
-        print(new_df)
+        #print(new_df)
         return new_df
+    
+    def convert_product_weights(self,database_extractor):
+        url='s3://data-handling-public/products.csv'
+        products_df = database_extractor.extract_from_s3(url)
+        products_df['weight'] = pd.to_numeric(products_df['weight'].str.replace('[a-zA-Z]',''), errors='coerce')
+        print(products_df)
+        #weight_column = products_df['weight']
+        #print(weight_column)
+        #return weight_column
+
 
 data_cleaner = DataCleaning()
 
