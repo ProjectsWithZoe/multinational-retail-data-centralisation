@@ -43,9 +43,10 @@ class DataExtractor:
             #print(data)
             df_list.append(data)
             store_number -=1
-        #print(df_list)
-        df = pd.DataFrame(df_list)
-        print(df)
+        return df_list
+        #df = pd.DataFrame(df_list)
+        
+        
 
 
 database_extractor = DataExtractor()

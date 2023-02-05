@@ -26,7 +26,7 @@ class DataCleaning:
         new_df['join_date'] = pd.to_datetime(new_df['join_date'], infer_datetime_format=True)
         new_df['date_of_birth'] = pd.to_datetime(new_df['date_of_birth'], infer_datetime_format=True)
         
-        print(new_df)
+        #print(new_df)
         return new_df
     #to be updated once link is fixed
     def clean_store_data(self, database_extractor):
@@ -34,11 +34,9 @@ class DataCleaning:
         url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'
         header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
         
-        df = database_extractor.retrieve_stores_data(url_two, header=header, store_number=store_number)
-        return df
-        
-        
-
+        df_list = database_extractor.retrieve_stores_data(url_two, header=header, store_number=store_number)
+        df = pd.DataFrame(df_list)
+        return df 
         
         #store_df = database_extractor.retrieve_stores_data(url,header)
 
