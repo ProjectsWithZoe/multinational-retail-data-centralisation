@@ -81,6 +81,5 @@ class DataCleaning:
         #print(null_values)
         return df
 
-
 data_cleaner = DataCleaning()
 
