@@ -71,21 +71,15 @@ class DataCleaning:
         df.loc[weight_ml.index, 'weight'] = weight_ml['weight']
         df.loc[weight_g.index, 'weight'] = weight_g['weight']
         return df
-        
-        
-        
-        #print(products_df)
-        #return products_df
-        #weight_column = products_df['weight']
-        #print(weight_column)
-        #return weight_column
 
     def clean_products_data(self,df):
-        #drop NaN values
-        filt_df = df.dropna(subset=['weight'])
-        #drop random weights with length over 7
-        new_df = filt_df[filt_df['weight'].str.len()<=7]
-        return new_df
+        duplicated = df.duplicated().sum()
+        null_values = df.isnull().sum()
+        #remove length on weight >9
+        df = df[df['weight'].str.len()<=9]
+        #print(duplicated)
+        #print(null_values)
+        return df
 
 
 data_cleaner = DataCleaning()
