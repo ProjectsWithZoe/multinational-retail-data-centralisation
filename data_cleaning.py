@@ -48,14 +48,44 @@ class DataCleaning:
         #print(new_df)
         return new_df
     
+    
     def convert_product_weights(self,database_extractor):
         url='s3://data-handling-public/products.csv'
-        products_df = database_extractor.extract_from_s3(url)
-        products_df['weight'] = pd.to_numeric(products_df['weight'].str.replace('[a-zA-Z]',''), errors='coerce')
-        print(products_df)
+        df = database_extractor.extract_from_s3(url)
+        
+        #drop NaN values
+        df = df.dropna(subset=['weight'])
+        df=df.copy()
+        #return df
+        
+        weight_ml = df[(df['weight'].str.contains('ml'))]
+        weight_ml[('weight')] = weight_ml['weight'].str.extract('(\d+)').astype(float) / 1000
+        weight_ml[('weight')] = weight_ml['weight'].apply(lambda x: str(x) + 'kg')
+        #print(weight_ml['weight'])
+        
+        weight_g = df[(~df['weight'].str.contains('kg') & df['weight'].str.contains('g'))]
+        weight_g['weight'] = weight_g['weight'].str.extract('(\d+)').astype(float) / 1000
+        weight_g['weight'] = weight_g['weight'].apply(lambda x: str(x) + 'kg')
+        #print(weight_g)
+
+        df.loc[weight_ml.index, 'weight'] = weight_ml['weight']
+        df.loc[weight_g.index, 'weight'] = weight_g['weight']
+        return df
+        
+        
+        
+        #print(products_df)
+        #return products_df
         #weight_column = products_df['weight']
         #print(weight_column)
         #return weight_column
+
+    def clean_products_data(self,df):
+        #drop NaN values
+        filt_df = df.dropna(subset=['weight'])
+        #drop random weights with length over 7
+        new_df = filt_df[filt_df['weight'].str.len()<=7]
+        return new_df
 
 
 data_cleaner = DataCleaning()
