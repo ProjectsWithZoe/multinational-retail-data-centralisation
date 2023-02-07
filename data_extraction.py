@@ -58,6 +58,17 @@ class DataExtractor:
         df = pd.read_csv(response['Body'])
         #print(df)
         return df
+    
+    def extract_s3_datetime(self,url):
+        url='https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json.'
+        session =boto3.Session(aws_access_key_id =config.aws_access_key_id,
+                                aws_secret_access_key = config.aws_secret_access_key)
+        s3_client = session.client('s3')
+        bucket,key = 'data-handling-public', 'date_details.json'
+        response = s3_client.get_object(Bucket=bucket, Key=key)
+        df = pd.read_json(response['Body'])
+        #print(df)
+        return df
         
         
 

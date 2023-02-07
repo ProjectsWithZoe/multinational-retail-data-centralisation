@@ -80,6 +80,18 @@ class DataCleaning:
         #print(duplicated)
         #print(null_values)
         return df
+    
+    def clean_datetime(self, df):
+        duplicated = df.duplicated().sum()
+        null_values = df.isnull().sum()
+        #removes duplicates
+        df = df.drop_duplicates(keep='first')
+        #removes values >2 for month
+        df = df[df['month'].str.len()<=2]
+
+        return df
+        #return df
+
 
 data_cleaner = DataCleaning()
 
