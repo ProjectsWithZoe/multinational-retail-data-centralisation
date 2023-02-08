@@ -28,7 +28,17 @@ class DataCleaning:
         
         #print(new_df)
         return new_df
-    #to be updated once link is fixed
+    
+    def clean_card_data(self, df):
+        #dup = df.duplicated().sum()
+        df = df.drop_duplicates(keep='first')
+        df = df.copy()
+
+        #return null_rows
+        return df
+        #return new_df
+    
+
     def clean_store_data(self, database_extractor):
         store_number = 450
         url_two= f'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{store_number}'

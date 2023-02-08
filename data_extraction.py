@@ -5,6 +5,7 @@ import pandas as pd
 import json, requests
 import boto3
 import config
+import tabula
 
 header = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
 url_one = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
@@ -13,6 +14,13 @@ url_one = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_st
 class DataExtractor:
     def __init__(self) -> None:
         pass
+
+    def retrieve_pdf_data(self,url):
+        #url='card_details.pdf'
+        dfl = tabula.read_pdf(url, pages='all')
+        df = pd.concat(dfl)
+        return df
+        
 
     def list_db_tables(self,engine):
         inspector = inspect(engine)
@@ -74,7 +82,6 @@ class DataExtractor:
 
 
 database_extractor = DataExtractor()
-
 
 
     
