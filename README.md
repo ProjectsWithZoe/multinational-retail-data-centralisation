@@ -54,3 +54,19 @@ convert_product_weights: This method takes a database_extractor object as input 
 clean_products_data: This method takes a DataFrame (df) as input and performs cleaning operations on products data. It checks for duplicated rows in the DataFrame, checks for null values in the DataFrame, and removes rows where the 'weight' column has a length greater than 9 characters. 
 
 clean_datetime: This method takes a DataFrame (df) as input and performs cleaning operations on datetime data. It checks for duplicated rows in the DataFrame, checks for null values in the DataFrame, removes duplicate rows, and removes rows where the 'month' column has a length greater than 2 characters. 
+
+<h1> Code functionality </h1>
+In the main.py file, we demonstrate the usage of the DatabaseConnector, DataCleaning, and DataExtractor classes to retrieve store details, perform data cleaning, and upload the cleaned data to a database. 
+The necessary modules and classes are imported: database_utils, data_cleaning, and data_extraction.
+
+Instances of the DatabaseConnector, DataCleaning, and DataExtractor classes are created: db_connector, data_cleaner, and database_extractor.
+
+The header dictionary is defined, which contains the required API header information.
+
+A store number and the corresponding URL for retrieving store details are defined.
+
+The retrieve_stores_data method of the DataExtractor class is called, passing the URL, header, and store number as arguments. This retrieves the store details as a DataFrame and assigns it to the variable df.
+
+The clean_store_data method of the DataCleaning class is called, passing the database_extractor instance as an argument. This performs data cleaning operations on the df DataFrame, and the cleaned DataFrame is assigned to the variable cleaned.
+
+The upload_to_db method of the DatabaseConnector class is called, passing the cleaned DataFrame and the table name ('dim_store_details') as arguments. This uploads the cleaned DataFrame to the specified database table.
